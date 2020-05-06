@@ -250,6 +250,16 @@
                     }, "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);");
                     expect(i18n.ngettext('%1 apple', '%1 apples', 5)).to.be('5 яблоко');
                 });
+                it('should correctly handle substitution when an array of one message is provided in an nplurals=1 locale', function () {
+                    i18n = new window.i18n({ locale: 'tdt' });
+                    i18n.setMessages('messages', 'tdt', {
+                        "%1 lesson left in %2.":
+                        [
+                            "%1 lisaun iha %2"
+                        ]
+                    }, 'nplurals=1; plural=0;');
+                    expect(i18n.ngettext('%1 lesson left in %2.', '%1 lessons left in %2.', 5, 'Mathematics')).to.be('5 lisaun iha Mathematics');
+                });
             });
 
             describe('loadJSON', function () {
